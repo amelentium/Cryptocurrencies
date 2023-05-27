@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CIS.Services;
+using CIS.Views;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 
@@ -14,6 +16,11 @@ public partial class App : Application
 			.ConfigureServices((context, services) => 
 			{
 				services.AddSingleton<MainWindow>();
+				services.AddTransient<CurrenciesView>();
+				services.AddTransient<CurrencyInfoView>();
+
+				services.AddHttpClient();
+				services.AddTransient<ICurrencyService, CurrencyService>();
 			})
 			.Build();
 	}

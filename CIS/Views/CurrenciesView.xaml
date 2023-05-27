@@ -1,0 +1,38 @@
+﻿<Window x:Class="CIS.Views.CurrenciesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:CIS.Views"
+        mc:Ignorable="d"
+        Title="CurrencyInfoView" Height="600" Width="800" FontFamily="Consolas" FontSize="14">
+	<Grid Margin="8">
+		<ListBox ItemsSource="{Binding Currencies}" d:ItemsSource="{d:SampleData ItemCount=10}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Vertical">
+						<WrapPanel Margin="8 4">
+							<TextBlock Text="{Binding Name}"></TextBlock>
+						</WrapPanel>
+						<StackPanel Orientation="Horizontal" Margin="8 4">
+							<WrapPanel Margin="24 0" VerticalAlignment="Center">
+								<TextBlock Text="Rank: "/>
+								<TextBlock Text="{Binding Rank, StringFormat=\{0\,3\}}"/>
+							</WrapPanel>
+							<WrapPanel Margin="24 0" VerticalAlignment="Center">
+								<TextBlock Text="Symbol: "/>
+								<TextBlock Text="{Binding Symbol, StringFormat=\{0\,-7\}}"/>
+							</WrapPanel>
+							<WrapPanel Margin="24 0" VerticalAlignment="Center">
+								<TextBlock Text="Price: "/>
+								<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}}"/>
+								<TextBlock Text="$"/>
+							</WrapPanel>
+							<Button VerticalAlignment="Center" Padding="4">INFO</Button>
+						</StackPanel>
+					</StackPanel>
+				</DataTemplate>				
+			</ListBox.ItemTemplate>
+		</ListBox>
+    </Grid>
+</Window>
