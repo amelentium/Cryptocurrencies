@@ -7,12 +7,12 @@ public class CurrencyModel : ModelBase
 	private string? symbol;
 	private string? name;
 	private double supply;
-	private double maxSupply;
+	private double? maxSupply;
 	private double marketCapUsd;
 	private double volumeUsd24Hr;
 	private double priceUsd;
 	private double changePercent24Hr;
-	private double vwap24Hr;
+	private double? vwap24Hr;
 
 	public string? Id
 	{
@@ -39,7 +39,7 @@ public class CurrencyModel : ModelBase
 		get => supply;
 		set { supply = value; OnPropertyChanged(nameof(Supply)); }
 	}
-	public double MaxSupply
+	public double? MaxSupply
 	{
 		get => maxSupply;
 		set { maxSupply = value; OnPropertyChanged(nameof(MaxSupply)); }
@@ -64,7 +64,7 @@ public class CurrencyModel : ModelBase
 		get => changePercent24Hr;
 		set { changePercent24Hr = value; OnPropertyChanged(nameof(ChangePercent24Hr)); }
 	}
-	public double Vwap24Hr
+	public double? Vwap24Hr
 	{
 		get => vwap24Hr;
 		set { vwap24Hr = value; OnPropertyChanged(nameof(Vwap24Hr)); }

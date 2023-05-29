@@ -1,4 +1,7 @@
-﻿using CIS.Services;
+﻿using CIS.AbstractFavtory;
+using CIS.Services;
+using CIS.Stores;
+using CIS.ViewModels;
 using CIS.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,13 +16,20 @@ public partial class App : Application
 	public App()
 	{
 		AppHost = Host.CreateDefaultBuilder()
-			.ConfigureServices((context, services) => 
+			.ConfigureServices((context, services) =>
 			{
 				services.AddSingleton<MainWindow>();
 				services.AddTransient<CurrenciesView>();
 				services.AddTransient<CurrencyInfoView>();
 
+				services.AddSingleton<MainViewModel>();
+				services.AddViewModelFactory<CurrenciesViewModel>();
+				services.AddViewModelFactory<CurrencyInfoViewModel>();
+				services.AddSingleton(typeof(IAbstractFactory<>), typeof(AbstractFactory<>));
+
 				services.AddHttpClient();
+				services.AddSingleton<NavigationStore>();
+				services.AddSingleton(typeof(INavigationService<>), typeof(NavigationService<>));
 				services.AddTransient<ICurrencyService, CurrencyService>();
 			})
 			.Build();

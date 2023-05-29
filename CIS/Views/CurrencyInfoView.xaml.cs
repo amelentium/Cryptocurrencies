@@ -1,19 +1,14 @@
-﻿using CIS.Services;
-using CIS.ViewModels;
-using System.Windows;
+﻿using System.Windows.Controls;
 
-namespace CIS.Views
+namespace CIS.Views;
+
+/// <summary>
+/// Interaction logic for CurrencyInfoView.xaml
+/// </summary>
+public partial class CurrencyInfoView : UserControl
 {
-	/// <summary>
-	/// Interaction logic for CurrencyInfoView.xaml
-	/// </summary>
-	public partial class CurrencyInfoView : Window
+	public CurrencyInfoView()
 	{
-		public CurrencyInfoView(ICurrencyService currencyService)
-		{
-			InitializeComponent();
-
-			DataContext = new CurrencyInfoViewModel(currencyService);
-		}
+		InitializeComponent();
 	}
 }
