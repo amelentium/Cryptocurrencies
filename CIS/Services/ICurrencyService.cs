@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CIS.Services
+namespace CIS.Services;
+
+public interface ICurrencyService
 {
-	public interface ICurrencyService
-	{
-		Task<List<CurrencyModel>?> GetAssets();
-		Task<CurrencyModel?> GetAssetById(string id);
-	}
+	Task<List<CurrencyModel>?> GetAssets();
+	Task<CurrencyModel?> GetAssetById(string id);
 }

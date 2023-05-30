@@ -18,11 +18,10 @@ public class CurrencyInfoViewModel : ViewModelBase
 	public CurrencyInfoViewModel(ICurrencyService currencyService)
 	{
 		_currencyService = currencyService;
-		LoadData();
 	}
 
-	private async Task LoadData()
+	public async Task LoadCurrencyData(string currencyId)
 	{
-		Currency = await _currencyService.GetAssetById("bitcoin");
+		Currency = await _currencyService.GetAssetById(currencyId);
 	}
 }

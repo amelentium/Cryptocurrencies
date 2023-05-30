@@ -1,6 +1,7 @@
 ﻿using CIS.AbstractFavtory;
 using CIS.Stores;
 using CIS.ViewModels;
+using System;
 
 namespace CIS.Services;
 
@@ -18,5 +19,12 @@ public class NavigationService<TViewModel> : INavigationService<TViewModel> wher
 	public void Navigate()
 	{
 		_navigationStore.CurrentViewModel = _viewModelFactory.Create();
+	}
+
+	public void Navigate<TAction>(TAction postAction, params object?[]? args) where TAction : Delegate
+	{
+		Navigate();
+
+		postAction.DynamicInvoke(_navigationStore.CurrentViewModel, args);
 	}
 }

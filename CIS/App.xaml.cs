@@ -1,4 +1,5 @@
 ﻿using CIS.AbstractFavtory;
+using CIS.Commands;
 using CIS.Services;
 using CIS.Stores;
 using CIS.ViewModels;
@@ -30,6 +31,7 @@ public partial class App : Application
 				services.AddHttpClient();
 				services.AddSingleton<NavigationStore>();
 				services.AddSingleton(typeof(INavigationService<>), typeof(NavigationService<>));
+				services.AddTransient(typeof(NavigateCommand<>));
 				services.AddTransient<ICurrencyService, CurrencyService>();
 			})
 			.Build();

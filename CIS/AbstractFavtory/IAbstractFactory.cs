@@ -1,7 +1,6 @@
-﻿namespace CIS.AbstractFavtory
+﻿namespace CIS.AbstractFavtory;
+
+public interface IAbstractFactory<T> where T : class
 {
-	public interface IAbstractFactory<T> where T : class
-	{
-		T Create();
-	}
+	T Create();
 }
