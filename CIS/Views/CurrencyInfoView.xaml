@@ -5,37 +5,57 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:viewModels="clr-namespace:CIS.ViewModels"
 			 d:DataContext="{d:DesignInstance Type=viewModels:CurrencyInfoViewModel}"
-			 mc:Ignorable="d"
-			 Height="600" Width="800" FontFamily="Consolas" FontSize="14">
+			 mc:Ignorable="d">
 	<Grid Margin="8">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
-		<StackPanel Margin="8" VerticalAlignment="Center">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<StackPanel VerticalAlignment="Center" >
 			<WrapPanel Margin="16 8" >
-				<TextBlock Text="{Binding Currency.Name}"/>
-				<TextBlock Text="{Binding Currency.Symbol, StringFormat=' ({0})'}"/>
+				<TextBlock Text="{Binding Currency.Name}" d:Text="Name"/>
+				<TextBlock Text="{Binding Currency.Symbol, StringFormat=' ({0})'}" d:Text=" Symbol"/>
 			</WrapPanel>
 			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.PriceUsd, StringFormat='${0:F4}'}"/>
-				<TextBlock Text="{Binding Currency.ChangePercent24Hr, StringFormat=' ({0:F4}%)'}"/>
+				<TextBlock Text="{Binding Currency.PriceUsd, StringFormat='${0:F4}'}" d:Text="PriceUsd"/>
+				<TextBlock Text="{Binding Currency.ChangePercent24Hr, StringFormat=' ({0:F4}%)'}" d:Text=" (Change%)"/>
 			</WrapPanel>
 			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.Rank, StringFormat='Rank: {0}'}"/>
+				<TextBlock Text="{Binding Currency.Rank, StringFormat='Rank: {0}'}" d:Text="Rank"/>
 			</WrapPanel>
 			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.MarketCapUsd, StringFormat='Market Cap: ${0}'}"/>
+				<TextBlock Text="{Binding Currency.MarketCapUsd, StringFormat='Market Cap: ${0}'}" d:Text="MarketCapUsd"/>
 			</WrapPanel>
 			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.VolumeUsd24Hr, StringFormat='Volume(24Hr): ${0}'}"/>
+				<TextBlock Text="{Binding Currency.VolumeUsd24Hr, StringFormat='Volume(24Hr): ${0}'}" d:Text="VolumeUsd24Hr"/>
 			</WrapPanel>
 			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.Supply, StringFormat='Supply: {0}'}"/>
+				<TextBlock Text="{Binding Currency.Supply, StringFormat='Supply: {0}'}" d:Text="Supply"/>
 			</WrapPanel>
 			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.Vwap24Hr, StringFormat='Average: {0}'}"/>
+				<TextBlock Text="{Binding Currency.Vwap24Hr, StringFormat='Average: {0}'}" d:Text="Vwap24Hr"/>
+			</WrapPanel>
+			<WrapPanel Margin="16 8 16 16">
+				<Button Padding="8 4" Content="Back" Command="{Binding CurrenciesNavigateCommand}"/>
 			</WrapPanel>
 		</StackPanel>
+		<ListBox ItemsSource="{Binding CurrencyMarkets}" d:ItemsSource="{d:SampleData ItemCount=10}" Grid.Row="1" ClipToBounds="True">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Margin="4 4" Orientation="Horizontal">
+						<WrapPanel Margin="8 0">
+							<TextBlock Text="{Binding ExchangeId, StringFormat=\{0\,-20\}}"/>
+						</WrapPanel>
+						<WrapPanel Margin="8 0">
+							<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}}"/>
+						</WrapPanel>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
 	</Grid>
 </UserControl>

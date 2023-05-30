@@ -11,8 +11,8 @@ namespace CIS.ViewModels;
 public class CurrenciesViewModel : ViewModelBase
 {
 	private readonly ICurrencyService _currencyService;
-
 	private List<CurrencyModel>? currencies;
+
 	public List<CurrencyModel>? Currencies
 	{
 		get => currencies;
@@ -24,7 +24,7 @@ public class CurrenciesViewModel : ViewModelBase
 	public CurrenciesViewModel(ICurrencyService currencyService, NavigateCommand<CurrencyInfoViewModel> currencyInfoNavigateCommand)
 	{
 		currencyInfoNavigateCommand.PostNavigateAction = new Action<CurrencyInfoViewModel, object?[]?>(async (viewModel, args)
-			=> await viewModel.LoadCurrencyData((string) args[0]));
+			=> await viewModel.LoadCurrencyData((string)args[0]));
 		CurrencyInfoNavigateCommand = currencyInfoNavigateCommand;
 
 		_currencyService = currencyService;
@@ -33,6 +33,6 @@ public class CurrenciesViewModel : ViewModelBase
 
 	private async Task LoadCurrenciesData()
 	{
-		Currencies = await _currencyService.GetAssets();
+		Currencies = await _currencyService.GetCurrenciesAsync();
 	}
 }

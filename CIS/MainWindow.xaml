@@ -9,7 +9,8 @@
 		mc:Ignorable="d"
         Title="Cryptocurrency Information System"
 		Height="600" Width="800"
-		FontFamily="Consolas" FontSize="14">
+		FontFamily="Consolas" FontSize="14"
+		Background="WhiteSmoke">
 	<Grid>
 		<Grid.Resources>
 			<DataTemplate DataType="{x:Type viewModels:CurrenciesViewModel}">

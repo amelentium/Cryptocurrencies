@@ -25,10 +25,9 @@
 							</WrapPanel>
 							<WrapPanel Margin="24 0" VerticalAlignment="Center">
 								<TextBlock Text="Price: "/>
-								<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}}"/>
-								<TextBlock Text="$"/>
+								<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}\$}"/>
 							</WrapPanel>
-							<Button VerticalAlignment="Center" Padding="4" Command="{Binding ElementName=ItemsList, Path=DataContext.CurrencyInfoNavigateCommand}" CommandParameter="{Binding Id}">INFO</Button>
+							<Button VerticalAlignment="Center" Padding="8 4" Command="{Binding ElementName=ItemsList, Path=DataContext.CurrencyInfoNavigateCommand}" CommandParameter="{Binding Id}">INFO</Button>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>				

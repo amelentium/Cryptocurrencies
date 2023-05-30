@@ -6,4 +6,10 @@ public static class CoinCapAPI
 
 	public const string AssetsUrl = _baseUrl + "/assets";
 	public const string AssetsByIdUrlTemplate = AssetsUrl + "/{0}";
+	public const string AssetMarketsUrlTemplate = AssetsByIdUrlTemplate + "/markets";
+
+	public static class QuoteSymbol
+	{
+		public const string USD = "USD";
+	}
 }

@@ -6,6 +6,7 @@ namespace CIS.Services;
 
 public interface ICurrencyService
 {
-	Task<List<CurrencyModel>?> GetAssets();
-	Task<CurrencyModel?> GetAssetById(string id);
+	Task<List<CurrencyModel>?> GetCurrenciesAsync();
+	Task<CurrencyModel?> GetCurrencyByIdAsync(string currencyId);
+	Task<List<CurrencyMarket>?> GetCurrencyMarketsAsync(string currencyId);
 }
