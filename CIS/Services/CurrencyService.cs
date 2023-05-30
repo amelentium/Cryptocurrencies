@@ -56,4 +56,22 @@ public class CurrencyService : ICurrencyService
 
 		return markets;
 	}
+
+	public async Task<List<CurrencyModel>?> SearchCurrency(string nameToSearch)
+	{
+		using HttpClient httpClient = _httpClientFactory.CreateClient();
+
+		var requestUrl = string.Format(CoinCapAPI.AssetSearchUrlTemplate, nameToSearch.ToLower());
+
+		try
+		{
+			var assets = await httpClient.GetFromJsonAsync<AssetsResponse>(requestUrl, _serializerOptions);
+
+			return assets?.Data;
+		}
+		catch
+		{
+			return null;
+		}
+	}
 }

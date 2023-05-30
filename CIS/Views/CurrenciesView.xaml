@@ -7,7 +7,15 @@
              d:DataContext="{d:DesignInstance Type=viewModels:CurrenciesViewModel}"
 			 mc:Ignorable="d">
 	<Grid Margin="8">
-		<ListBox x:Name="ItemsList" ItemsSource="{Binding Currencies}" d:ItemsSource="{d:SampleData ItemCount=10}">
+		<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+			<TextBox Width="128" Height="28" VerticalAlignment="Center" Padding="4"
+					 Text="{Binding SearchValue}"/>
+			<Button Width="28" Content="🔍"
+					Command="{Binding SearchCurrencyCommand}"/>
+		</WrapPanel>
+		<ListBox x:Name="ItemsList" Margin="0,36,0,0"
+				 ItemsSource="{Binding Currencies}"
+				 d:ItemsSource="{d:SampleData ItemCount=10}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Vertical">
@@ -27,11 +35,13 @@
 								<TextBlock Text="Price: "/>
 								<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}\$}"/>
 							</WrapPanel>
-							<Button VerticalAlignment="Center" Padding="8 4" Command="{Binding ElementName=ItemsList, Path=DataContext.CurrencyInfoNavigateCommand}" CommandParameter="{Binding Id}">INFO</Button>
+							<Button VerticalAlignment="Center" Padding="8 4" 
+									Command="{Binding ElementName=ItemsList, Path=DataContext.CurrencyInfoNavigateCommand}"
+									CommandParameter="{Binding Id}">Info</Button>
 						</StackPanel>
 					</StackPanel>
-				</DataTemplate>				
+				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-    </Grid>
+	</Grid>
 </UserControl>
