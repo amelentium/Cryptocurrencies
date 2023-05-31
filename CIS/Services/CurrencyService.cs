@@ -1,5 +1,4 @@
-﻿using CIS.Constants;
-using CIS.Models;
+﻿using CIS.Models;
 using CIS.Models.CoinCap;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,49 +24,90 @@ public class CurrencyService : ICurrencyService
 	{
 		using HttpClient httpClient = _httpClientFactory.CreateClient();
 
-		var assets = await httpClient.GetFromJsonAsync<AssetsResponse>(CoinCapAPI.AssetsUrl, _serializerOptions);
+		try
+		{
+			var assets = await httpClient.GetFromJsonAsync<AssetsResponse>(Constants.CoinCapAPI.AssetsUrl, _serializerOptions);
 
-		return assets?.Data;
+			return assets?.Data;
+		}
+		catch
+		{
+			return null;
+		}
 	}
 
 	public async Task<CurrencyModel?> GetCurrencyByIdAsync(string currencyId)
 	{
 		using HttpClient httpClient = _httpClientFactory.CreateClient();
 
-		var requestUrl = string.Format(CoinCapAPI.AssetsByIdUrlTemplate, currencyId);
+		var requestUrl = string.Format(Constants.CoinCapAPI.AssetsByIdUrlTemplate, currencyId);
 
-		var asset = await httpClient.GetFromJsonAsync<AssetByIdResponse>(requestUrl, _serializerOptions);
+		try
+		{
+			var asset = await httpClient.GetFromJsonAsync<AssetByIdResponse>(requestUrl, _serializerOptions);
 
-		return asset?.Data;
+			return asset?.Data;
+		}
+		catch
+		{
+			return null;
+		}
 	}
 
-	public async Task<List<CurrencyMarket>?> GetCurrencyMarketsAsync(string currencyId)
+	public async Task<List<CurrencyMarketModel>?> GetCurrencyMarketsAsync(string currencyId)
 	{
 		using HttpClient httpClient = _httpClientFactory.CreateClient();
 
-		var requestUrl = string.Format(CoinCapAPI.AssetMarketsUrlTemplate, currencyId);
+		var requestUrl = string.Format(Constants.CoinCapAPI.AssetMarketsUrlTemplate, currencyId);
 
-		var assetMarkets = await httpClient.GetFromJsonAsync<AssetMarkets>(requestUrl, _serializerOptions);
+		try
+		{
+			var assetMarkets = await httpClient.GetFromJsonAsync<AssetMarketsResponse>(requestUrl, _serializerOptions);
 
-		var markets = assetMarkets?.Data?
-			.Where(market => market.BaseId == currencyId && market.QuoteSymbol == CoinCapAPI.QuoteSymbol.USD)
-			.OrderByDescending(market => market.PriceUsd)
-			.ToList();
+			var markets = assetMarkets?.Data?
+				.Where(market => market.BaseId == currencyId && market.QuoteSymbol == Constants.CoinCapAPI.QuoteSymbol.USD)
+				.OrderByDescending(market => market.PriceUsd)
+				.ToList();
 
-		return markets;
+			return markets;
+		}
+		catch
+		{
+			return null;
+		}
 	}
 
 	public async Task<List<CurrencyModel>?> SearchCurrency(string nameToSearch)
 	{
 		using HttpClient httpClient = _httpClientFactory.CreateClient();
 
-		var requestUrl = string.Format(CoinCapAPI.AssetSearchUrlTemplate, nameToSearch.ToLower());
+		var requestUrl = string.Format(Constants.CoinCapAPI.AssetSearchUrlTemplate, nameToSearch.ToLower());
 
 		try
 		{
 			var assets = await httpClient.GetFromJsonAsync<AssetsResponse>(requestUrl, _serializerOptions);
 
 			return assets?.Data;
+		}
+		catch
+		{
+			return null;
+		}
+	}
+
+	public async Task<List<CurrencyHistoryValueModel>?> GetCurrencyHistoryAsync(string currencyId)
+	{
+		using HttpClient httpClient = _httpClientFactory.CreateClient();
+
+		var requestUrl = string.Format(Constants.CoinCapAPI.AssetHistoryUrlTemplate, currencyId);
+
+		try
+		{
+			var historyResponse = await httpClient.GetFromJsonAsync<AssetHistoryResponse>(requestUrl, _serializerOptions);
+
+			return historyResponse?.Data?
+				.OrderBy(x => x.Date)
+				.ToList();
 		}
 		catch
 		{

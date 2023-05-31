@@ -4,6 +4,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:viewModels="clr-namespace:CIS.ViewModels"
+			 xmlns:oxy="http://oxyplot.org/wpf"
 			 d:DataContext="{d:DesignInstance Type=viewModels:CurrencyInfoViewModel}"
 			 mc:Ignorable="d">
 	<UserControl.Resources>
@@ -24,6 +25,13 @@
 			<Setter Property="Background" Value="Transparent"/>
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="Margin" Value="16 4"/>
+		</Style>
+		<Style TargetType="oxy:PlotView">
+			<Setter Property="Width" Value="450"/>
+			<Setter Property="Height" Value="300"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Margin" Value="0 -4"/>
 		</Style>
 	</UserControl.Resources>
 	<Grid d:Background="White">
@@ -100,5 +108,8 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
+		<oxy:PlotView Grid.Column="1"
+					  Model="{Binding HistoryPlot}">
+		</oxy:PlotView>
 	</Grid>
 </UserControl>

@@ -1,6 +1,6 @@
 ﻿namespace CIS.Models;
 
-public class CurrencyMarket : ModelBase
+public class CurrencyMarketModel : ModelBase
 {
 	private string? exchangeId;
 	private string? baseId;
