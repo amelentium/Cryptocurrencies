@@ -6,38 +6,77 @@
              xmlns:viewModels="clr-namespace:CIS.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewModels:CurrenciesViewModel}"
 			 mc:Ignorable="d">
-	<Grid Margin="8">
-		<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-			<TextBox Width="128" Height="28" VerticalAlignment="Center" Padding="4"
+	<UserControl.Resources>
+		<Style x:Key="SearchPanel" TargetType="WrapPanel">
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="Margin" Value="0 0 0 8"/>
+		</Style>
+		<Style x:Key="SearchField" TargetType="TextBox">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Width" Value="128"/>
+			<Setter Property="Height" Value="28"/>
+			<Setter Property="Padding" Value="4"/>
+		</Style>
+		<Style x:Key="SearchButton" TargetType="Button">
+			<Setter Property="Width" Value="28"/>
+			<Setter Property="Height" Value="28"/>
+		</Style>
+		<Style x:Key="ItemHeader" TargetType="WrapPanel">
+			<Setter Property="TextBlock.FontWeight" Value="Bold"/>
+			<Setter Property="Margin" Value="8 4"/>
+		</Style>
+		<Style x:Key="ItemBody" TargetType="StackPanel">
+			<Setter Property="Orientation" Value="Horizontal"/>
+			<Setter Property="Margin" Value="8 4"/>
+		</Style>
+		<Style x:Key="ItemProperty" TargetType="WrapPanel">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Margin" Value="24 0"/>
+		</Style>
+		<Style x:Key="ItemInfoButton" TargetType="Button">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="8 4"/>
+		</Style>
+	</UserControl.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<WrapPanel Grid.Row="0" Style="{StaticResource SearchPanel}">
+			<TextBox Style="{StaticResource SearchField}"
 					 Text="{Binding SearchValue}"/>
-			<Button Width="28" Content="🔍"
-					Command="{Binding SearchCurrencyCommand}"/>
+			<Button Style="{StaticResource SearchButton}"
+					Command="{Binding SearchCurrencyCommand}"
+					Content="🔍"/>
 		</WrapPanel>
-		<ListBox x:Name="ItemsList" Margin="0,36,0,0"
+		<ListBox Grid.Row="1" x:Name="ItemsList"
 				 ItemsSource="{Binding Currencies}"
 				 d:ItemsSource="{d:SampleData ItemCount=10}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<StackPanel Orientation="Vertical">
-						<WrapPanel Margin="8 4">
+					<StackPanel>
+						<WrapPanel Style="{StaticResource ItemHeader}">
 							<TextBlock Text="{Binding Name}"></TextBlock>
 						</WrapPanel>
-						<StackPanel Orientation="Horizontal" Margin="8 4">
-							<WrapPanel Margin="24 0" VerticalAlignment="Center">
+						<StackPanel Style="{StaticResource ItemBody}">
+							<WrapPanel Style="{StaticResource ItemProperty}">
 								<TextBlock Text="Rank: "/>
 								<TextBlock Text="{Binding Rank, StringFormat=\{0\,3\}}"/>
 							</WrapPanel>
-							<WrapPanel Margin="24 0" VerticalAlignment="Center">
+							<WrapPanel Style="{StaticResource ItemProperty}">
 								<TextBlock Text="Symbol: "/>
 								<TextBlock Text="{Binding Symbol, StringFormat=\{0\,-7\}}"/>
 							</WrapPanel>
-							<WrapPanel Margin="24 0" VerticalAlignment="Center">
+							<WrapPanel Style="{StaticResource ItemProperty}">
 								<TextBlock Text="Price: "/>
 								<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}\$}"/>
 							</WrapPanel>
-							<Button VerticalAlignment="Center" Padding="8 4" 
+							<Button Content="Info"
+									Style="{StaticResource ItemInfoButton}"
 									Command="{Binding ElementName=ItemsList, Path=DataContext.CurrencyInfoNavigateCommand}"
-									CommandParameter="{Binding Id}">Info</Button>
+									CommandParameter="{Binding Id}"/>
 						</StackPanel>
 					</StackPanel>
 				</DataTemplate>

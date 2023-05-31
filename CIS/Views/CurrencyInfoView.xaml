@@ -6,54 +6,97 @@
 			 xmlns:viewModels="clr-namespace:CIS.ViewModels"
 			 d:DataContext="{d:DesignInstance Type=viewModels:CurrencyInfoViewModel}"
 			 mc:Ignorable="d">
-	<Grid Margin="8">
+	<UserControl.Resources>
+		<Style x:Key="PropertyPanel" TargetType="WrapPanel">
+			<Setter Property="Margin" Value="8"/>
+		</Style>
+		<Style x:Key="HeaderPropertyPanel" TargetType="WrapPanel"
+			   BasedOn="{StaticResource PropertyPanel}">
+			<Setter Property="TextBlock.FontWeight" Value="Bold"/>
+		</Style>
+		<Style x:Key="BackButton" TargetType="Button">
+			<Setter Property="Padding" Value="8 4"/>
+		</Style>
+		<Style TargetType="ListBox">
+			<Setter Property="Padding" Value="8 4"/>
+		</Style>
+		<Style x:Key="MarketList" TargetType="ListBox">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="Margin" Value="16 4"/>
+		</Style>
+	</UserControl.Resources>
+	<Grid d:Background="White">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-			<ColumnDefinition/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<StackPanel VerticalAlignment="Center" >
-			<WrapPanel Margin="16 8" >
-				<TextBlock Text="{Binding Currency.Name}" d:Text="Name"/>
-				<TextBlock Text="{Binding Currency.Symbol, StringFormat=' ({0})'}" d:Text=" Symbol"/>
+		<StackPanel>
+			<WrapPanel Style="{StaticResource HeaderPropertyPanel}">
+				<TextBlock Text="{Binding Currency.Name}"
+						   d:Text="Name"/>
+				<TextBlock Text="{Binding Currency.Symbol, StringFormat=' ({0})'}"
+						   d:Text=" Symbol"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.PriceUsd, StringFormat='${0:F4}'}" d:Text="PriceUsd"/>
-				<TextBlock Text="{Binding Currency.ChangePercent24Hr, StringFormat=' ({0:F4}%)'}" d:Text=" (Change%)"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<TextBlock Text="{Binding Currency.PriceUsd, StringFormat='${0:F4}'}"
+						   d:Text="PriceUsd"/>
+				<TextBlock Text="{Binding Currency.ChangePercent24Hr, StringFormat=' ({0:F4}%)'}"
+						   d:Text=" (Change%)"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.Rank, StringFormat='Rank: {0}'}" d:Text="Rank"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<TextBlock Text="Rank: "/>
+				<TextBlock Text="{Binding Currency.Rank, StringFormat='0'}"
+						   d:Text="Rank"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.MarketCapUsd, StringFormat='Market Cap: ${0}'}" d:Text="MarketCapUsd"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<TextBlock Text="Market Cap: "/>
+				<TextBlock Text="{Binding Currency.MarketCapUsd, StringFormat=' $0'}"
+						   d:Text="MarketCapUsd"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.VolumeUsd24Hr, StringFormat='Volume(24Hr): ${0}'}" d:Text="VolumeUsd24Hr"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<TextBlock Text="Volume (24Hr): "/>
+				<TextBlock Text="{Binding Currency.VolumeUsd24Hr, StringFormat=' $0'}"
+						   d:Text="VolumeUsd24Hr"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.Supply, StringFormat='Supply: {0}'}" d:Text="Supply"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<TextBlock Text="Supply: "/>
+				<TextBlock Text="{Binding Currency.Supply, StringFormat='0'}"
+						   d:Text="Supply"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8">
-				<TextBlock Text="{Binding Currency.Vwap24Hr, StringFormat='Average: {0}'}" d:Text="Vwap24Hr"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<TextBlock Text="Average (24Hr): "/>
+				<TextBlock Text="{Binding Currency.Vwap24Hr, StringFormat=' $0'}"
+						   d:Text="Vwap24Hr"/>
 			</WrapPanel>
-			<WrapPanel Margin="16 8 16 16">
-				<Button Padding="8 4" Content="Back" Command="{Binding CurrenciesNavigateCommand}"/>
+			<WrapPanel Style="{StaticResource PropertyPanel}">
+				<Button Content="Back"
+						Style="{StaticResource BackButton}"
+						Command="{Binding CurrenciesNavigateCommand}"/>
+			</WrapPanel>
+			<WrapPanel
+				   Style="{StaticResource HeaderPropertyPanel}">
+				<TextBlock Text="Market prices:"/>
 			</WrapPanel>
 		</StackPanel>
-		<ListBox ItemsSource="{Binding CurrencyMarkets}" d:ItemsSource="{d:SampleData ItemCount=10}" Grid.Row="1" ClipToBounds="True">
+		<ListBox Grid.Row="1"
+				 Style="{StaticResource MarketList}"
+				 ItemsSource="{Binding CurrencyMarkets}"
+				 d:ItemsSource="{d:SampleData ItemCount=10}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<StackPanel Margin="4 4" Orientation="Horizontal">
-						<WrapPanel Margin="8 0">
+					<WrapPanel>
+						<WrapPanel>
 							<TextBlock Text="{Binding ExchangeId, StringFormat=\{0\,-20\}}"/>
 						</WrapPanel>
-						<WrapPanel Margin="8 0">
-							<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}}"/>
+						<WrapPanel>
+							<TextBlock Text="{Binding PriceUsd, StringFormat=\{0\,10:F4\}\$}"/>
 						</WrapPanel>
-					</StackPanel>
+					</WrapPanel>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>

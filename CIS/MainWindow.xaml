@@ -9,8 +9,26 @@
 		mc:Ignorable="d"
         Title="Cryptocurrency Information System"
 		Height="600" Width="800"
-		FontFamily="Consolas" FontSize="14"
+		FontFamily="Consolas" FontSize="16"
 		Background="WhiteSmoke">
+	<Window.Resources>
+		<Style TargetType="Grid">
+			<Setter Property="Margin" Value="8"/>
+		</Style>
+		<Style TargetType="ListBox">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="BorderThickness" Value="0"/>
+		</Style>
+		<Style TargetType="ListBoxItem">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ListBoxItem">
+						<ContentPresenter/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
 	<Grid>
 		<Grid.Resources>
 			<DataTemplate DataType="{x:Type viewModels:CurrenciesViewModel}">
